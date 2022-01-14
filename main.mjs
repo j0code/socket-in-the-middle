@@ -99,6 +99,12 @@ const socket = net.createServer({}, client => {
         if(!server.destroyed) server.destroy()
       break
 
+      case "ECONNREFUSED":
+        console.log(`${client.remoteAddress}:${client.remotePort} <-> ${dest_ip}:${dest_port} ~ server refused connection`)
+        if(!client.destroyed) client.destroy()
+        if(!server.destroyed) server.destroy()
+      break
+
       default:
         console.error("Unknown error:", e)
         process.exit(0)
